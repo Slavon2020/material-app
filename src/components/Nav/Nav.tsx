@@ -1,6 +1,8 @@
 import { AppBar, Box, Button, Container, IconButton, Toolbar, Typography } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useState } from "react";
+import { LoginForm } from "../LoginForm/LoginForm";
 
 const useStyles = makeStyles((theme) => ({
     menuButton: {
@@ -13,6 +15,16 @@ const useStyles = makeStyles((theme) => ({
 
 export const Nav = () => {
     const classes = useStyles();
+    const [isFormOpen, setIsFormOpen] = useState(false);
+    
+    const handleClose = () => {
+      setIsFormOpen(false);
+    }
+
+    const handleOpen = () => {
+      setIsFormOpen(true);
+    }
+    
     return (
         <AppBar position='fixed'>
           <Container fixed>
@@ -24,11 +36,12 @@ export const Nav = () => {
                 Logo
               </Typography>
               <Box mr={3}>
-                <Button color='inherit' variant='outlined'>Log in</Button>
+                <Button onClick={handleOpen} color='inherit' variant='outlined'>Log in</Button>
               </Box>
               <Button color='secondary' variant='contained'>Sign up</Button>
             </Toolbar>
           </Container>
+          <LoginForm isFormOpen={isFormOpen} handleClose={handleClose} />
         </AppBar>
     )
 }
